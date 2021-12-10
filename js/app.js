@@ -145,7 +145,6 @@ function llenarSelectYear() {
 
 
 function filtrarAuto() {
-
     // Filtrar Autos y Asignar el nuevo array a la variable 'resultado'
     const resultado = autos
         .filter( filtrarMarca )
@@ -156,8 +155,14 @@ function filtrarAuto() {
         .filter( filtrarTransmision )
         .filter( filtrarColor );
 
-    // Mostrar autos con filtros
-    console.log(resultado);
+    // Si el array 'resultado' contiene autos
+    if( resultado.length ) {
+        // Mostrar autos en el html
+        mostrarAutos(resultado);
+    } else {
+        // Mostrar alerta
+        noResultado();
+    }
 }
 
 function filtrarMarca(auto) {
@@ -263,4 +268,17 @@ function filtrarColor(auto) {
         return auto.color === color;
     }
     return auto;
+}
+
+function noResultado() {
+    // Eliminar el HTML previo
+    limpiarHTML();
+
+    // Crear alerta
+    const noResultado = document.createElement('div');
+    noResultado.classList.add('alerta', 'error');
+    noResultado.textContent = 'No hay resultado, intenta con otros terminos de busqueda';
+
+    // Agregar alerta al HTML
+    resultado.appendChild(noResultado)
 }
