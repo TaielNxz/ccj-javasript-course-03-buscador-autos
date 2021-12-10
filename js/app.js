@@ -45,28 +45,28 @@ marca.addEventListener('change', e => {
 
 year.addEventListener('change', e => {
     // Asigna el valor del select a 'datos busqueda'
-    datosBusqueda.year = e.target.value;
+    datosBusqueda.year = parseInt( e.target.value );
 
     filtrarAuto();
 });
 
 minimo.addEventListener('change', e => {
     // Asigna el valor del select a 'datos busqueda'
-    datosBusqueda.minimo = e.target.value;
+    datosBusqueda.minimo = parseInt( e.target.value );
 
     filtrarAuto();
 });
 
 maximo.addEventListener('change', e => {
     // Asigna el valor del select a 'datos busqueda'
-    datosBusqueda.maximo = e.target.value;
+    datosBusqueda.maximo = parseInt( e.target.value );
 
     filtrarAuto();
 });
 
 puertas.addEventListener('change', e => {
     // Asigna el valor del select a 'datos busqueda'
-    datosBusqueda.puertas = e.target.value;
+    datosBusqueda.puertas = parseInt( e.target.value );
 
     filtrarAuto();
 });
@@ -115,12 +115,6 @@ function limpiarHTML() {
     }
 }
 
-
-function filtrarAuto() {
-    console.log(datosBusqueda);
-};
-
-
 function llenarSelectYear() {
     /* 
      ? Queremos obtener los 10 ultimos años en base al año actual. 
@@ -148,3 +142,125 @@ function llenarSelectYear() {
         year.appendChild(opcion);
     };
 };
+
+
+function filtrarAuto() {
+
+    // Filtrar Autos y Asignar el nuevo array a la variable 'resultado'
+    const resultado = autos
+        .filter( filtrarMarca )
+        .filter( filtrarYear )
+        .filter( filtrarMinimo )
+        .filter( filtrarMaximo )
+        .filter( filtrarPuertas )
+        .filter( filtrarTransmision )
+        .filter( filtrarColor );
+
+    // Mostrar autos con filtros
+    console.log(resultado);
+}
+
+function filtrarMarca(auto) {
+    // extraer 'marca' de datosBusqueda
+    const { marca } = datosBusqueda;
+
+    /*
+      si 'marca' existe en 'datosBusqueda': 
+      retornamos un auto cuya 'marca' sea igual 
+      a la que recibimos de 'datosBusqueda' 
+    */
+    if( marca ) {
+        return auto.marca === marca;
+    }
+    return auto;
+}
+
+function filtrarYear(auto) {
+    // extraer 'year' de datosBusqueda
+    const { year } = datosBusqueda;
+
+    /*
+      si 'year' existe en 'datosBusqueda': 
+      retornamos un auto cuyo 'year' sea igual 
+      al que recibimos de 'datosBusqueda' 
+    */
+    if( year ) {
+        return auto.year === year;
+    }
+    return auto;
+}
+
+function filtrarMinimo(auto) {
+    // extraer informacion de datosBusqueda
+    const { minimo } = datosBusqueda;
+
+    /*
+      si 'minimo' existe en 'datosBusqueda':
+      retornamos un auto cuyo precio sea mayor 
+      al valor ('minimo') que recibimos de 'datosBusqueda' 
+    */
+    if( minimo ) {
+        return auto.minimo >= minimo;
+    }
+    return auto;
+}
+
+function filtrarMaximo(auto) {
+    // extraer informacion de datosBusqueda
+    const { maximo } = datosBusqueda;
+
+    /*
+      si 'maximo' existe en 'datosBusqueda':
+      retornamos un auto cuyo precio sea menor 
+      al valor ('maximo') que recibimos de 'datosBusqueda' 
+    */
+    if( maximo ) {
+        return auto.maximo <= maximo;
+    }
+    return auto;
+}
+
+function filtrarPuertas(auto) {
+    // extraer informacion de datosBusqueda
+    const { puertas } = datosBusqueda;
+
+    /*
+      si 'puertas' existe en 'datosBusqueda': 
+      retornamos un auto cuyo numero de 'puertas' sea igual 
+      al que recibimos de 'datosBusqueda' 
+    */
+    if( puertas ) {
+        return auto.puertas === puertas;
+    }
+    return auto;
+}
+
+function filtrarTransmision(auto) {
+    // extraer informacion de datosBusqueda
+    const { transmision } = datosBusqueda;
+
+    /*
+      si 'transmision' existe en 'datosBusqueda':
+      retornamos un auto cuya 'transmision' sea igual 
+      a la que recibimos de 'datosBusqueda' 
+    */
+    if( transmision ) {
+        return auto.transmision === transmision;
+    }
+    return auto;
+}
+
+function filtrarColor(auto) {
+    // extraer informacion de datosBusqueda
+    const { color } = datosBusqueda;
+
+    /*
+      si 'color' existe en 'datosBusqueda':
+      retornamos un auto cuto 'color' sea igual
+      al que recibimos de 'datosBusqueda' 
+    */
+    if( color ) {
+        return auto.color === color;
+    }
+    return auto;
+}
